@@ -1,0 +1,28 @@
+{% extends 'recipe/base.html' %}
+
+{% block content %}
+    <div class="page-header">
+        <h3>Generate a free meal plan</h3>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Day</th>
+            <th scope="col">Breakfast</th>
+            <th scope="col">Lunch</th>
+            <th scope="col">Dinner</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Generate table rows for each day -->
+        {% for day in meal_plan %}
+            <tr>
+                <td>{{ day.day }}</td>
+                <td><a href="/recipe/{{ day.breakfast.id }}">{{ day.breakfast.name }}</a></td>
+                <td><a href="/recipe/{{ day.lunch.id }}">{{ day.lunch.name }}</a></td>
+                <td><a href="/recipe/{{ day.dinner.id }}">{{ day.dinner.name }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

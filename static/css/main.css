@@ -1,0 +1,52 @@
+div.alert {
+    margin: 24px;
+    text-align: center;
+}
+
+div.page-header {
+    text-align: center;
+    margin: 50px;
+}
+
+div.container {
+    margin-top: 25px;
+}
+
+.carousel {
+    margin-bottom: 25px;
+}
+
+.carousel-item {
+    background: linear-gradient(grey, black);
+}
+
+.badge {
+    float: right;
+}
+
+.img-container {
+    /*position: relative;*/
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+img.fit-carousel {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+}
+
+img.custom-icon {
+    width: 32px;
+    padding-bottom: 12px;
+}
+
+p.custom-icon {
+    margin-bottom: 0.5rem;
+}
+
+small.custom-icon {
+    padding-right: 7px;
+}

@@ -1,0 +1,16 @@
+{% extends 'recipe/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="page-header">
+        <h3>Recipe Editor</h3>
+    </div>
+    <!-- Form for adding and editing recipes -->
+    <form action="" enctype="multipart/form-data" method="POST" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+{% endblock %}
+

@@ -1,0 +1,70 @@
+{% extends 'recipe/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="card mb-3">
+        <img class="card-img-top" src="/{{ recipe.image }}" alt="{{ recipe.name }}">
+        <div class="card-body">
+            <h4 class="card-title">{{ recipe.name }}</h4>
+            <p class="card-text">{{ recipe.description }}</p>
+            <!-- Small row with recipe times and corresponding icons -->
+            <p class="card-text custom-icon">
+                <img class="custom-icon" src="{% static 'images/preping-time.png' %}" alt="prepping-time">
+                <small class="text-muted custom-icon">{{ recipe.prepTime }} min,</small>
+                <img class="custom-icon" src="{% static 'images/cooking-time.png' %}" alt="cooking-time">
+                <small class="text-muted custom-icon">{{ recipe.cookTime }} min,</small>
+                <img class="custom-icon" src="{% static 'images/standing-time.png' %}" alt="standing-time">
+                <small class="text-muted custom-icon">{{ recipe.standTime }} min</small>
+            </p>
+            <!-- Print emphasis / weight during automatic meal planning as a text -->
+            <p class="card-text custom-icon">
+                {% if recipe.emphasis > 2 %}
+                    <small class="text-muted">Emphasis: I can eat this everyday!</small>
+                {% elif recipe.emphasis > 1 %}
+                    <small class="text-muted">Emphasis: One of my favorites!</small>
+                {% elif recipe.emphasis == 1 %}
+                    <small class="text-muted custom-icon">Emphasis: Solid choice.</small>
+                {% else %}
+                    <small class="text-muted">Emphasis: Once every blue moon.</small>
+                {% endif %}
+            </p>
+            <h5 class="card-title">Preparation</h5>
+            <ul class="list-group list-group-flush">
+                <!-- Create li's with css separators for every paragraph in the directions field -->
+                {% for line in directions_lines %}
+                    <li class="list-group-item">{{ line }}</li>
+                {% endfor %}
+            </ul>
+            <div class="card-body">
+                <a href="{% url 'edit_recipe' pk=recipe.id %}" class="card-link">Edit</a>
+                <!-- Toggle deletion confirm modal -->
+                <a href="" class="card-link text-danger" data-toggle="modal"
+                   data-target="#deleteConfirmation">Delete</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal to confirm deletion of recipe -->
+    <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog"
+         aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationLabel">Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this recipe?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">I made a mistake</button>
+                    <a href="{% url 'delete recipe' pk=recipe.id %}" class="btn btn-danger">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

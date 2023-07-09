@@ -1,0 +1,70 @@
+{% extends 'recipe/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+    <div class="page-header">
+        <h3>Find all your recipes here</h3>
+    </div>
+    <!-- Iterate through breakfast, lunch, dinner and other recipes -->
+    {% for meal_type in meal_types %}
+        <!-- Create carousel for each meal type -->
+        <div id="carouselExampleControls{{ meal_type }}" class="carousel slide" data-ride="carousel"
+             data-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <figure class="img-container">
+                        <!-- Fetch default meal type image -->
+                        <img class="d-block w-100 fit-carousel" src="{% static '' %}images/{{ meal_type }}.jpg"
+                             alt="{{ meal_type }} slide">
+                    </figure>
+                    <div class="carousel-caption d-none d-md-block">
+                        {% if meal_type == 'Breakfast' %}
+                            <h3>Recipes for breakfast</h3>
+                            <p>Start your day off right with these delightful breakfast recipes to fuel your morning
+                                routine.</p>
+                        {% elif meal_type == 'Lunch' %}
+                            <h3>Recipes for lunch</h3>
+                            <p>Savor a satisfying and flavorful midday meal with these delicious lunchtime recipes</p>
+                        {% elif meal_type == 'Dinner' %}
+                            <h3>Recipes for dinner</h3>
+                            <p>Enjoy a relaxed meal in the evening with these recipes.</p>
+                        {% else %}
+                            <h3>Recipes for snacks and other meals</h3>
+                            <p>Indulge in tasty and wholesome snacks that are perfect for satisfying your cravings
+                                throughout the day."</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Use custom template tag to iterate through recipes by meal type -->
+                {% for recipe in recipes_by_type|get_dict_value:meal_type %}
+                    <div class="carousel-item">
+                        <a href="{% url 'recipe_detail' pk=recipe.id %}">
+                            <figure class="img-container">
+                                <img class="d-block w-100 img-fluid fit-carousel" src="{{ recipe.image }}"
+                                     alt="recipe slide">
+                            </figure>
+                            <div class="carousel-caption d-none d-md-block">
+                                <h3>{{ recipe.name }}</h3>
+                                <p>{{ recipe.description }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Assign custom href so each individual carousel still works -->
+            <a class="carousel-control-prev" href="#carouselExampleControls{{ meal_type }}" role="button"
+               data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <!-- Assign custom href so each individual carousel still works -->
+            <a class="carousel-control-next" href="#carouselExampleControls{{ meal_type }}" role="button"
+               data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}
+
