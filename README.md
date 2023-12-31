@@ -12,13 +12,12 @@ Exercise in Django and web development.
 
 ## Technologies
 - Django
-- Bootstrap 4
+- Bootstrap
 
 ## Features
 
 ### Recipe carousel
 Find your recipes categorized by "Breakfast", "Lunch", "Dinner" and "Other".
-a detailed view.
 
 ![carousel.png](docs%2Fcarousel.png) 
 
